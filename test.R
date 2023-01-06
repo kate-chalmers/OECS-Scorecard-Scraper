@@ -12,15 +12,15 @@ html <- remDr$getPageSource()
 
 writeChar(html[[1]], "result.html")
 
-url <- "https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1"
-
-remDr$navigate(url)
-
-remDr$findElement(using = "id", value = "categories-ids-ngdp_mc")$clickElement()
-
-remDr$findElement(using = "id", value = "start-date")$sendKeysToElement(list("2019-12-31"))
-remDr$findElement(using = "id", value = "end-date")$sendKeysToElement(list(end_date))
-
-remDr$findElement(using = "id", value = "statistics-select-all-countries")$clickElement()
-
-remDr$findElements("css", ".form-buttom")[[1]]$clickElement()
+# url <- "https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1"
+# 
+# remDr$navigate(url)
+# 
+# remDr$findElement(using = "id", value = "categories-ids-ngdp_mc")$clickElement()
+# 
+# remDr$findElement(using = "id", value = "start-date")$sendKeysToElement(list("2019-12-31"))
+# remDr$findElement(using = "id", value = "end-date")$sendKeysToElement(list(end_date))
+# 
+# remDr$findElement(using = "id", value = "statistics-select-all-countries")$clickElement()
+# 
+# remDr$findElements("css", ".form-buttom")[[1]]$clickElement()

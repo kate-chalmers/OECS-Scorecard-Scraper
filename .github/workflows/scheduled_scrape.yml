@@ -23,6 +23,8 @@ jobs:
             any::zoo
             any::WDI
             any::rjson
+            any::comtradr
+            any::httr
             
       - name: Cache R packages
         uses: actions/cache@v2

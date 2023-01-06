@@ -20,7 +20,8 @@ system("docker run -d --shm-size='2g' -p 4445:4444 selenium/standalone-firefox",
 Sys.sleep(5)
 
 # remDr <- remoteDriver("localhost", 4445L, "firefox")
-remDr <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port())
+
+remDr <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port(), extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
 remDr <- remDr[["client"]]
 
 # remDr$open()

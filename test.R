@@ -9,9 +9,8 @@ remDr <- remoteDriver("localhost", 4445L, "firefox")
 remDr$open()
 remDr$navigate("https://phptravels.com/demo")
 remDr$navigate("https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1")
-
+Sys.sleep(100)
 remDr$findElement(using = "id", value = "categories-ids-ngdp_mc")$clickElement()
-
 html <- remDr$getPageSource()
 
 writeChar(html[[1]], "result.html")

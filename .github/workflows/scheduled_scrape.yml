@@ -1,7 +1,7 @@
-name: Scraping X using R
+name: Scraping OECS data
 
 on:
-  workflow_dispatch:
+  push
 
 jobs:
   scrape:
@@ -19,7 +19,7 @@ jobs:
     
       - name: Rscript run
         run: |
-          Rscript script.R
+          test.R
       - name: Commit results
         run: |
           git config --local user.email "actions@github.com"

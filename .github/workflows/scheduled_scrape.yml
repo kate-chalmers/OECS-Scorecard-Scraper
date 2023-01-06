@@ -22,6 +22,7 @@ jobs:
             any::netstat
             any::zoo
             any::WDI
+            any::rjson
             
       - name: Cache R packages
         uses: actions/cache@v2

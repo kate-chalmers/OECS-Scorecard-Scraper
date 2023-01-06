@@ -5,7 +5,7 @@ Sys.sleep(5)
 system("docker run -d --shm-size='2g' -p 4445:4444 selenium/standalone-firefox", wait=TRUE)
 Sys.sleep(5)
 
-remDr <- remoteDriver("localhost", 4445L, "firefox", chromever = NULL)
+remDr <- remoteDriver("localhost", 4445L, "firefox")
 remDr$open()
 remDr$navigate("https://phptravels.com/demo")
 remDr$navigate("https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1")

@@ -1,5 +1,7 @@
+name: Scraping X using R
+
 on:
-  push
+  workflow_dispatch:
 
 jobs:
   scrape:
@@ -17,7 +19,7 @@ jobs:
     
       - name: Rscript run
         run: |
-          Rscript test.R
+          Rscript script.R
       - name: Commit results
         run: |
           git config --local user.email "actions@github.com"

@@ -7,6 +7,10 @@ Sys.sleep(5)
 
 remDr <- remoteDriver("localhost", 4445L, "chrome")
 remDr$open()
+remDr$navigate("https://phptravels.com/demo")
+html <- remDr$getPageSource()
+
+writeChar(html[[1]], "result.html")
 
 url <- "https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1"
 

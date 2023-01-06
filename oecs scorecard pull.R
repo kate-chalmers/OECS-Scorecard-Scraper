@@ -1,16 +1,14 @@
 # Load libraries
+library(tidyverse)
 library(RSelenium)
 library(rvest)
 library(rjson)
 library(httr)
-library(dplyr)
-library(magrittr)
-library(tidyr)
-library(tibble)
-library(readr)
 library(janitor)
 library(countrycode)
 library(comtradr)
+library(WDI)
+library(zoo)
 
 # ------------ Before running ----------------
 # 1. Ensure working directory is same as project directory
@@ -18,31 +16,21 @@ library(comtradr)
 # 3. Run script
 # --------------------------------------
 
-# Country filter lists
+# Country filter lists, date setting
 clist_avail <- c("Antigua and Barbuda","Dominica","Grenada", "St. Kitts & Nevis", "St. Lucia","St. Vincent and the Grenadines", "Montserrat", "Anguilla")
 clist_iso2c <- countrycode(clist_avail, "country.name", "iso2c")
 
 current_year <- as.numeric(format(Sys.Date(), format="%Y")) - 1
 end_date <- paste0(current_year, "-12-31")
 
-# port_num <- round(runif(1, min=1, max=9999),0) %>% as.integer()
-# # system('docker run -d -p 4449:4444 selenium/standalone-firefox')
-# # remDr <- remoteDriver(remoteServerAddr = "localhost", port = 4445L, browserName = "firefox")
-# # remDr$open()
-# # remDr$navigate("http://www.google.com/ncr")
-# # remDr$getTitle()
-#
-# works locally ----
-# rD <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port())
-# remDr <- rD[["client"]]
-
-system("docker pull selenium/standalone-chrome", wait=TRUE)
+# initialize selenium server
+system("docker pull selenium/standalone-firefox", wait=TRUE)
 Sys.sleep(5)
-system("docker run -d -p 4445:4444 selenium/standalone-chrome", wait=TRUE)
+system("docker run -d --shm-size='2g' -p 4445:4444 selenium/standalone-firefox", wait=TRUE)
 Sys.sleep(5)
 
-remDr <- remoteDriver("localhost", 4445L, "chrome")
-remDr$open()
+remDr <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port(), extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
+remDr <- remDr[["client"]]
 
 # Pull currency conversion
 currency_convert <- WDI::WDI(indicator="PA.NUS.FCRF", country=c("ATG","GRD","DMA","VCT","LCA","KNA", "MSR", "AIA"))

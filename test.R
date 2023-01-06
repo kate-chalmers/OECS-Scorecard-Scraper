@@ -14,7 +14,7 @@ remDr$findElement(using = "id", value = "categories-ids-ngdp_mc")$clickElement()
 
 html <- remDr$getPageSource()
 
-writeChar(html[[1]], "result.html")
+# writeChar(html[[1]], "result.html")
 
 # url <- "https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1"
 # 

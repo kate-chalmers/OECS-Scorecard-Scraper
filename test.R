@@ -15,8 +15,9 @@ print('line 14')
 url5 <- "https://www.eccb-centralbank.org/statistics/debt-datas/comparative-report/2"
 remDr$navigate(url5)
 print('line 17')
-remDr$findElement(using = "id", value = "categories-ids-dgdpcg")$clickElement()
 
+remDr$findElement(using = "id", value = "categories-ids-dgdpcg")$clickElement()
+print('line 19')
 # html <- remDr$getPageSource()
 # 
 # writeChar(html[[1]], "result.html")

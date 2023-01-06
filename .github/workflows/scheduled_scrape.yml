@@ -19,6 +19,8 @@ jobs:
             any::rvest
             any::janitor
             any::netstat
+            any::zoo
+            any::WDI
     
       - name: Rscript run
         run: |

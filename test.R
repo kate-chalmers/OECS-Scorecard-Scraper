@@ -8,17 +8,12 @@ Sys.sleep(5)
 # rD <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port())
 # remDr <- rD[["client"]]
 
-
 remDr <- remoteDriver("localhost", 4445L, "chrome")
 remDr$open()
-print('line 14')
-url5 <- "https://www.eccb-centralbank.org/statistics/debt-datas/comparative-report/2"
-remDr$navigate(url5)
-print('line 17')
 
-remDr$findElement(using = "id", value = "categories-ids-dgdpcg")$clickElement()
-print('line 19')
-# html <- remDr$getPageSource()
-# 
-# writeChar(html[[1]], "result.html")
+url <- "https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1"
+
+remDr$navigate(url)
+
+remDr$findElement(using = "id", value = "categories-ids-ngdp_mc")$clickElement()
 

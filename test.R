@@ -25,7 +25,6 @@ remDr <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_po
 remDr <- remDr[["client"]]
 
 # remDr$open()
-remDr$navigate("https://phptravels.com/demo")
 remDr$navigate("https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1")
 remDr$findElement(using = "xpath", value = "/html/body/div[2]/div[3]/div/div/div[2]/div[2]/div[2]/form/div[2]/div/div/div/div[3]/label")$clickElement()
 

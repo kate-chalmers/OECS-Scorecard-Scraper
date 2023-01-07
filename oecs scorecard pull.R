@@ -29,8 +29,13 @@ Sys.sleep(5)
 system("docker run -d --shm-size='2g' -p 4445:4444 selenium/standalone-firefox", wait=TRUE)
 Sys.sleep(5)
 
-remDr <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port(), extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
-remDr <- remDr[["client"]]
+intializeSelenium <- function() {
+  remDr <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port(), extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
+  remDr <- remDr[["client"]]
+  return(remDr)
+}
+
+remDr <- intializeSelenium()
 
 # Pull currency conversion
 currency_convert <- WDI::WDI(indicator="PA.NUS.FCRF", country=c("ATG","GRD","DMA","VCT","LCA","KNA", "MSR", "AIA"))
@@ -57,6 +62,8 @@ rm(currency_convert, currency_convert_temp, currency_convert_temp2)
 # GDP -------------------------------
 
 url <- "https://www.eccb-centralbank.org/statistics/gdp-datas/comparative-report/1"
+
+remDr <- intializeSelenium() 
 
 remDr$navigate(url)
 
@@ -181,6 +188,8 @@ agri_dat_small <- agri_dat_small %>%
 # Tourism expenditure ------------------
 url2 <- "https://www.eccb-centralbank.org/statistics/tourisms/comparative-report"
 
+remDr <- intializeSelenium() 
+
 remDr$navigate(url2)
 
 remDr$findElement(using = "id", value = "categories-ids-ave")$clickElement()
@@ -230,6 +239,8 @@ tourism_dat_fin <- tourism_dat %>%
 # Population projections ------------------
 
 url3 <- "https://www.eccb-centralbank.org/statistics/population-datas/comparative-report"
+
+remDr <- intializeSelenium() 
 
 remDr$navigate(url3)
 
@@ -307,6 +318,8 @@ gdp_per_cap <- gdp_dat_full %>%
 
 url4 <- "https://www.eccb-centralbank.org/statistics/trades/comparative-report"
 
+remDr <- intializeSelenium() 
+
 remDr$navigate(url4)
 
 remDr$findElement(using = "id", value = "categories-ids-tx")$clickElement()
@@ -383,6 +396,8 @@ for(iso2c in iso2c_list) {
 
 url5 <- "https://www.eccb-centralbank.org/statistics/debt-datas/comparative-report/2"
 
+remDr <- intializeSelenium() 
+
 remDr$navigate(url5)
 
 remDr$findElement(using = "id", value = "categories-ids-dgdpcg")$clickElement()
@@ -421,6 +436,8 @@ debt_dat <- debt_dat %>%
 # Agriculture & fishing value added
 
 url6 <- "https://www.eccb-centralbank.org/statistics/gdp-datas/country-report/5"
+
+remDr <- intializeSelenium() 
 
 # No LCA or VCT in database
 iso2c <- c("AI", "DM", "GD", "KN", "AG", "MS")
@@ -690,6 +707,8 @@ for(yoi in 2021:2030) {
 }
 
 url <- url_which %>% filter(exists == T) %>% pull(url)
+
+remDr <- intializeSelenium() 
 
 remDr$navigate(url)
 

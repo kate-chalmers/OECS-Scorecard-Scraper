@@ -12,6 +12,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
+          cache-version: 2
           packages: |
             any::RSelenium
             any::countrycode
@@ -19,10 +20,22 @@ jobs:
             any::rvest
             any::janitor
             any::netstat
+            any::zoo
+            any::WDI
+            any::rjson
+            any::comtradr
+            any::httr
+            
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
     
       - name: Rscript run
         run: |
-          Rscript test.R
+          Rscript oecs_scorecard_pull.R
       - name: Commit results
         run: |
           git config --local user.email "actions@github.com"

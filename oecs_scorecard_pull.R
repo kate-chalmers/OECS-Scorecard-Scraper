@@ -29,10 +29,15 @@ Sys.sleep(5)
 system("docker run -d --shm-size='2g' -p 4445:4444 selenium/standalone-firefox", wait=TRUE)
 Sys.sleep(5)
 
-intializeSelenium <- function() {
-  remDr <- rsDriver(browser = "firefox", 
-                    chromever = NULL, 
-                    port = netstat::free_port(), 
+intializeSelenium <- function(random_port = T) {
+  
+  if(random_port == T) {
+    port_num <- runif(1, min=1000, max=9999) %>% as.integer()
+  }
+  
+  remDr <- rsDriver(browser = "firefox",
+                    chromever = NULL,
+                    port = port_num,
                     check = TRUE,
                     verbose = TRUE,
                     extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
@@ -41,6 +46,22 @@ intializeSelenium <- function() {
 }
 
 remDr <- intializeSelenium()
+
+# system("docker pull selenium/standalone-chrome",wait=T)
+# Sys.sleep(5)
+# system("docker run -d -p 4445:4444 selenium/standalone-chrome",wait=T)
+# Sys.sleep(5)
+# remDr <- remoteDriver(port=4445L, browserName="chrome")
+# 
+# remDr <- remoteDriver(
+#   remoteServerAddr = "192.168.99.100",
+#   port = 4445L,
+#   browserName="chrome"
+# )
+# remDr$open(silent = TRUE)
+# remDr$navigate("http://www.google.com/ncr")
+# remDr$getTitle()
+# remDr$screenshot(display = TRUE)
 
 # Pull currency conversion
 currency_convert <- WDI::WDI(indicator="PA.NUS.FCRF", country=c("ATG","GRD","DMA","VCT","LCA","KNA", "MSR", "AIA"))

@@ -424,6 +424,7 @@ for(iso2c in iso2c_list) {
 url5 <- "https://www.eccb-centralbank.org/statistics/debt-datas/comparative-report/2"
 
 remDr <- intializeSelenium() 
+remDr <- intializeSelenium() 
 
 remDr$navigate(url5)
 

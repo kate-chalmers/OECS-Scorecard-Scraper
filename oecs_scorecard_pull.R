@@ -438,14 +438,14 @@ debt_dat <- debt_dat %>%
 
 url6 <- "https://www.eccb-centralbank.org/statistics/gdp-datas/country-report/5"
 
-remDr <- intializeSelenium() 
-
 # No LCA or VCT in database
 iso2c <- c("AI", "DM", "GD", "KN", "AG", "MS")
 
 agri_dat_complet <- c()
 
 for(iso2c_input in iso2c) {
+  
+  remDr <- intializeSelenium() 
 
   remDr$navigate(url6)
 

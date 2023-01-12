@@ -30,7 +30,12 @@ system("docker run -d --shm-size='2g' -p 4445:4444 selenium/standalone-firefox",
 Sys.sleep(5)
 
 intializeSelenium <- function() {
-  remDr <- rsDriver(browser = "firefox", chromever = NULL, port = netstat::free_port(), extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
+  remDr <- rsDriver(browser = "firefox", 
+                    chromever = NULL, 
+                    port = netstat::free_port(), 
+                    check = TRUE,
+                    verbose = TRUE,
+                    extraCapabilities = list("moz:firefoxOptions" = list(args = list('--headless'))))
   remDr <- remDr[["client"]]
   return(remDr)
 }

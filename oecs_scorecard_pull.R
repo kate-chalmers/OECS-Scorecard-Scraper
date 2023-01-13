@@ -271,27 +271,29 @@ new_dat_pop <- pop_dat %>% filter(year == current_year)
 if(nrow(new_dat_pop) < 1) {
   
   # UN population projections
-  url <- "https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/CSV_FILES/WPP2022_TotalPopulationBySex.zip"
+  # url <- "https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/CSV_FILES/WPP2022_TotalPopulationBySex.zip"
+  # 
+  # temp <- tempfile()
+  # download.file(url, temp)
+  # un_dat <- read.csv(unz(temp, "WPP2022_TotalPopulationBySex.csv"))
+  # unlink(temp)
+  # 
+  # un_tidy <- un_dat %>% 
+  #   filter(Variant == "Medium") %>%
+  #   as.data.frame() %>%
+  #   filter(Time > 2010) %>%
+  #   select(Location, Time, PopTotal) %>%
+  #   mutate(country = countrycode(Location, "country.name", "country.name"),
+  #          iso2c = countrycode(Location, "country.name", "iso2c"),
+  #          PopTotal = PopTotal*1e3) %>%
+  #   drop_na() %>%
+  #   filter(iso2c %in% clist_iso2c) %>%
+  #   select(-Location, -iso2c) %>%
+  #   rename("year" = "Time", "pop" = "PopTotal")
+  # 
+  # pop_dat <- un_tidy %>% filter(year > 2020 & year < (current_year + 1))
   
-  temp <- tempfile()
-  download.file(url, temp)
-  un_dat <- read.csv(unz(temp, "WPP2022_TotalPopulationBySex.csv"))
-  unlink(temp)
-  
-  un_tidy <- un_dat %>% 
-    filter(Variant == "Medium") %>%
-    as.data.frame() %>%
-    filter(Time > 2010) %>%
-    select(Location, Time, PopTotal) %>%
-    mutate(country = countrycode(Location, "country.name", "country.name"),
-           iso2c = countrycode(Location, "country.name", "iso2c"),
-           PopTotal = PopTotal*1e3) %>%
-    drop_na() %>%
-    filter(iso2c %in% clist_iso2c) %>%
-    select(-Location, -iso2c) %>%
-    rename("year" = "Time", "pop" = "PopTotal")
-  
-  pop_dat <- un_tidy %>% filter(year > 2020 & year < (current_year + 1))
+  pop_dat <- readRDS("./data/population_data.RDS")
   
 }
 

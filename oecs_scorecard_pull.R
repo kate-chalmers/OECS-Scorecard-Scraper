@@ -8,6 +8,7 @@ library(tidyverse)
 library(janitor)
 library(countrycode)
 library(comtradr)
+options(download.file.method="curl", download.file.extra="-k -L")
 
 # ------------ Before running ----------------
 # 1. Ensure working directory is same as project directory

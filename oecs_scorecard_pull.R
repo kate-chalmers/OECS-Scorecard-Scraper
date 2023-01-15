@@ -706,11 +706,16 @@ wdi_values <- wdi_indicators %>%
 
 url <- "https://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
 
-download.file(url,"./data/undoc_dat.xlsx",
-              method="curl", 
-              mode="wb") 
+unodc_dat <- openxlsx::read.xlsx(url) 
 
-unodc_dat <- readxl::read_excel("./data/undoc_dat.xlsx",skip=2)
+colnames(unodc_dat) <- unodc_dat[2,]
+unodc_dat <- unodc_dat %>% .[-c(1:2),]
+
+# download.file(url,"./data/undoc_dat.xlsx",
+#               method="curl", 
+#               mode="wb") 
+# 
+# unodc_dat <- readxl::read_excel("./data/undoc_dat.xlsx",skip=2)
 
 unodc_tidy <- unodc_dat %>%
   clean_names() %>%

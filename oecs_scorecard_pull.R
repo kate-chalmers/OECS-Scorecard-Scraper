@@ -704,7 +704,7 @@ wdi_values <- wdi_indicators %>%
 #   select(country, "year" = "year_value", "value" = "measure_values_alias", category)
 
 
-url <- "https://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
+url <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
 
 unodc_dat <- openxlsx::read.xlsx(url) 
 

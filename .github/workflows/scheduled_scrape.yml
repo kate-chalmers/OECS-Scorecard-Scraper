@@ -25,6 +25,8 @@ jobs:
             any::rjson
             any::comtradr
             any::httr
+            any::openxlsx
+            any::RCurl
             
       - name: Cache R packages
         uses: actions/cache@v2

@@ -27,6 +27,7 @@ jobs:
             any::httr
             any::readxl
             any::RCurl
+            any::pxR
             
       - name: Cache R packages
         uses: actions/cache@v2

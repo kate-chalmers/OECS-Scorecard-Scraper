@@ -706,7 +706,7 @@ wdi_values <- wdi_indicators %>%
 #   select(country, "year" = "year_value", "value" = "measure_values_alias", category)
 
 
-url <- "https://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
+url <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
 
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 unodc_dat <- readxl::read_excel(tf, 1)
@@ -728,7 +728,7 @@ unodc_tidy <- unodc_dat %>%
   select(country, year, value, category)
 
 # Intention homicides
-url2 <- "https://dataunodc.un.org/sites/dataunodc.un.org/files/homicide_country_download.xlsx"
+url2 <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/homicide_country_download.xlsx"
 
 GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
 homicide <- readxl::read_excel(tf, 1)

@@ -4,6 +4,7 @@ library(rvest)
 library(rjson)
 library(httr)
 # library(stringr)
+library(readxl)
 library(tidyverse)
 library(janitor)
 library(countrycode)
@@ -705,9 +706,10 @@ wdi_values <- wdi_indicators %>%
 #   select(country, "year" = "year_value", "value" = "measure_values_alias", category)
 
 
-url <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
+url <- "https://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
 
-unodc_dat <- openxlsx::read.xlsx(url) 
+GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+unodc_dat <- readxl::read_excel(tf, 1)
 
 colnames(unodc_dat) <- unodc_dat[2,]
 unodc_dat <- unodc_dat %>% .[-c(1:2),]
@@ -726,7 +728,10 @@ unodc_tidy <- unodc_dat %>%
   select(country, year, value, category)
 
 # Intention homicides
-homicide <- openxlsx::read.xlsx("http://dataunodc.un.org/sites/dataunodc.un.org/files/homicide_country_download.xlsx")
+url2 <- "https://dataunodc.un.org/sites/dataunodc.un.org/files/homicide_country_download.xlsx"
+
+GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+homicide <- readxl::read_excel(tf, 1)
 
 homicide_tidy <- homicide %>%
   clean_names() %>%

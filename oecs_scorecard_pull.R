@@ -9,7 +9,6 @@ library(tidyverse)
 library(janitor)
 library(countrycode)
 library(comtradr)
-options(download.file.method="curl", download.file.extra="-k -L")
 
 # ------------ Before running ----------------
 # 1. Ensure working directory is same as project directory
@@ -351,7 +350,14 @@ goods_dat <- goods_dat %>%
 
 # Trade in services
 
-url <- "https://www.eccb-centralbank.org/files/Statistics%20Documents/External%20Sector%20Statistics/TIS%2012-29-21Trade%20In%20Services%20(TIS)-%202014-2020.xlsx"
+url <- "https://www.eccb-centralbank.org/p/external-sector-statistics"
+
+links_avail <- read_html(url) %>%
+  html_nodes("a") %>% 
+  html_attr("href")
+
+link_needed <- sub(".*/files/", "", links_avail[grepl("Trade", links_avail)])
+url <- paste0("https://www.eccb-centralbank.org/files/", link_needed)
 
 download.file(url,"./data/export_services.xlsx",
               method="curl", 

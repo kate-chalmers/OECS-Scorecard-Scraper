@@ -706,42 +706,47 @@ wdi_values <- wdi_indicators %>%
 #   select(country, "year" = "year_value", "value" = "measure_values_alias", category)
 
 
-url <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
-
-GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
-unodc_dat <- readxl::read_excel(tf, 1)
-
-colnames(unodc_dat) <- unodc_dat[2,]
-unodc_dat <- unodc_dat %>% .[-c(1:2),]
-
-# download.file(url,"./data/undoc_dat.xlsx",
-#               method="curl", 
-#               mode="wb") 
+# url <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/data_cts_violent_and_sexual_crime.xlsx"
 # 
-# unodc_dat <- readxl::read_excel("./data/undoc_dat.xlsx",skip=2)
+# GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+# unodc_dat <- readxl::read_excel(tf, 1)
+# 
+# colnames(unodc_dat) <- unodc_dat[2,]
+# unodc_dat <- unodc_dat %>% .[-c(1:2),]
+# 
+# # download.file(url,"./data/undoc_dat.xlsx",
+# #               method="curl", 
+# #               mode="wb") 
+# # 
+# # unodc_dat <- readxl::read_excel("./data/undoc_dat.xlsx",skip=2)
+# 
+# unodc_tidy <- unodc_dat %>%
+#   clean_names() %>%
+#   filter(iso3_code %in% countrycode(clist_iso2c, "iso2c", "iso3c") & category == "Robbery") %>%
+#   mutate(country = countrycode(country, "country.name", "country.name"),
+#          category = "Rates of police-recorded offenses (robbery) (per 100,000 population)") %>%
+#   select(country, year, value, category)
+# 
+# # Intention homicides
+# url2 <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/homicide_country_download.xlsx"
+# 
+# GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
+# homicide <- readxl::read_excel(tf, 1)
+# 
+# colnames(homicide) <- homicide[2,]
+# homicide <- homicide %>% .[-c(1:2),]
+# 
+# homicide_tidy <- homicide %>%
+#   clean_names() %>% 
+#   filter(unit_of_measurement == "Rate per 100,000 population" & sex == "Total" & age == "Total") %>%
+#   select(country, year, value) %>%
+#   mutate(country = countrycode(country, "country.name", "country.name"),
+#          category = "Intentional homicides (per 100,000 people)") %>%
+#   filter(country %in% countrycode(clist_avail, "country.name", "country.name"))
+# 
+# unodc_values <- rbind(unodc_tidy, homicide_tidy)
 
-unodc_tidy <- unodc_dat %>%
-  clean_names() %>%
-  filter(iso3_code %in% countrycode(clist_iso2c, "iso2c", "iso3c") & category == "Robbery") %>%
-  mutate(country = countrycode(country, "country.name", "country.name"),
-         category = "Rates of police-recorded offenses (robbery) (per 100,000 population)") %>%
-  select(country, year, value, category)
-
-# Intention homicides
-url2 <- "http://dataunodc.un.org/sites/dataunodc.un.org/files/homicide_country_download.xlsx"
-
-GET(url, write_disk(tf <- tempfile(fileext = ".xlsx")))
-homicide <- readxl::read_excel(tf, 1)
-
-homicide_tidy <- homicide %>%
-  clean_names() %>%
-  filter(unit == "Rate per  100,000 population" & gender == "Total (all ages)") %>%
-  select(country, year, value) %>%
-  mutate(country = countrycode(country, "country.name", "country.name"),
-         category = "Intentional homicides (per 100,000 people)") %>%
-  filter(country %in% countrycode(clist_avail, "country.name", "country.name"))
-
-unodc_values <- rbind(unodc_tidy, homicide_tidy)
+unodc_values <- c()
 
 # Crime statistics for St. Lucia
 

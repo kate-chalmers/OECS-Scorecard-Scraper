@@ -25,7 +25,7 @@ jobs:
             any::rjson
             any::comtradr
             any::httr
-            any::openxlsx
+            any::readxl
             any::RCurl
             
       - name: Cache R packages

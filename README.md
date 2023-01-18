@@ -1,6 +1,6 @@
 # OECS-Scorecard-Scraper
 
-This github repository hosts the data to be fed into the [OECS Scorecard](https://cds-tools.shinyapps.io/OECS-scorecard/). 
+This github repository hosts the web scraper used to collect the data to be fed into the [OECS Scorecard](https://cds-tools.shinyapps.io/OECS-scorecard/). 
 
 The data sources are the following:
 1. ECCB

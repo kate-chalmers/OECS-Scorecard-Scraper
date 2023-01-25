@@ -47,4 +47,4 @@ jobs:
           git config --local user.name "GitHub Actions"
           git add -A
           git commit -m 'Update data' || echo "Update data"
-          git push origin || echo "Update data"
+          git push origin --force || echo "Update data"
